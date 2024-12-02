@@ -1,0 +1,25 @@
+
+services:
+  nodejs-crud-api:
+    container_name: nodejs-crud-api
+    build: ./NodeJS-server
+    environment:
+      - PORT=3000
+    ports:
+      - "3000:3000"
+    networks:
+      - nginx-nodejs-crud
+
+  nginx:
+    container_name: my-nginx
+    restart: always
+    image: nginx:latest
+    ports:
+      - "80:80"
+    networks:
+      - nginx-nodejs-crud
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+
+networks:
+  nginx-nodejs-crud:
